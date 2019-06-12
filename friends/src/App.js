@@ -56,9 +56,16 @@ class App extends React.Component {
     this.setState({ inputEmail: email })
   }
 
-  deleteFriendHandler = (event) => {
-    console.log('Is working!!')
-    console.log(event.target.parentNode) // -> use path or id to delete card
+  addFriendHandler = () => {
+    //post thing goes here
+  }
+
+  deleteFriendHandler = (id) => {
+    const newFriendData = this.state.friendsData.filter(friend => friend.id !== id);
+
+    this.setState({
+      friendsData: newFriendData,
+    })
   }
 
   render() {
@@ -91,7 +98,8 @@ class App extends React.Component {
                         render={(props) => {
                           return (
                             <FriendCard 
-                              {...props}      
+                              {...props}  
+                              id={friend.id}    
                               name={friend.name} 
                               age={friend.age}
                               email={friend.email}
@@ -106,6 +114,7 @@ class App extends React.Component {
                           return (
                             <FriendCard 
                               {...props}
+                              id={friend.id} 
                               name={friend.name} 
                               age={friend.age}
                               email={friend.email}
@@ -126,6 +135,7 @@ class App extends React.Component {
               nameInputHandler={this.nameInputHandler}
               ageInputHandler={this.ageInputHandler}
               emailInputHandler={this.emailInputHandler}
+              addFriendHandler={this.addFriendHandler}
             />
           </>
         }

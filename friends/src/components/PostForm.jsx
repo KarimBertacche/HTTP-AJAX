@@ -47,7 +47,7 @@ export default function PostForm(props) {
                 <input type="text" value={props.name} onChange={props.nameInputHandler} placeholder="Name"/>
                 <input type="text" value={props.age} onChange={props.ageInputHandler} placeholder="Age"/>
                 <input type="email" value={props.email} onChange={props.emailInputHandler} placeholder="Email"/>
-                <button>Add Friend</button>
+                <button onClick={props.addFriendHandler}>Add Friend</button>
             </form>
         </StyledPostForm>
     );  

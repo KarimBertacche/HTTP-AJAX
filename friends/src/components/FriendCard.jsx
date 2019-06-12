@@ -52,10 +52,11 @@ const StylesFriendCard = styled.div`
         font-size: 1rem;
         font-weight: bold;
         cursor: pointer;
+        outline: none;
 
         &:hover {
             background-color: #333;
-            color: #fff;
+            color: #fff;   
         }
     }
 
@@ -65,7 +66,7 @@ const StylesFriendCard = styled.div`
 export default function FriendCard(props) {
     return(
         <StylesFriendCard>
-            <span onClick={props.deleteFriendHandler}>X</span>
+            <span onClick={() => props.deleteFriendHandler(props.id)}>X</span>
             <p>{props.name} {props.age}</p>
             <Link className="email-link" to={props.email}>{props.email}</Link>
             <button>Update info</button>
