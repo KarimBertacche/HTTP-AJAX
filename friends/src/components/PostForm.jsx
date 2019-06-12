@@ -45,11 +45,13 @@ const StyledPostForm = styled.div`
 export default function PostForm(props) {
     return(
         <StyledPostForm>
-            <form onSubmit={props.addFriendHandler}>
+            <form onSubmit={props.btn === 'ADD FRIEND' 
+                                ? (event) => props.addFriendHandler(event) 
+                                : (event) => props.updateFriendHandler(event)} >
                 <input type="text" name="inputName" value={props.name} onChange={props.inputHandler} placeholder="Name"/>
-                <input type="text" name="inputAge" value={props.age} onChange={props.inputHandler} placeholder="Age"/>
+                <input type="number" name="inputAge" value={props.age} onChange={props.inputHandler} placeholder="Age"/>
                 <input type="email" name="inputEmail" value={props.email} onChange={props.inputHandler} placeholder="Email"/>
-                <button type="submit">Add Friend</button>
+                <button type="submit">{props.btn}</button>
             </form>
         </StyledPostForm>
     );  

@@ -7,9 +7,10 @@ import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StylesApp = styled.div`
-  background-color: #fff;
+  background: -webkit-linear-gradient(to right, #ec2F4B, #009FFF);
+  background: linear-gradient(to right, #ec2F4B, #009FFF);
   min-height: 100vh;
-  padding: 50px 0 100px;
+  padding: 100px 0 100px;
 `;
 
 class App extends React.Component {
@@ -22,6 +23,8 @@ class App extends React.Component {
       inputName: '',
       inputAge: '',
       inputEmail: '',
+      postBtnText: 'ADD FRIEND',
+      friendID: null,
     }
   }
 
@@ -45,16 +48,19 @@ class App extends React.Component {
     this.setState({ [ name ]: value });
   }
 
-  addFriendHandler = () => {
+  addFriendHandler = (event) => {
     //post thing goes here
-    let name = this.state.inputName;
-    let age = this.state.inputAge;
-    let email = this.state.inputEmail;
+    if(this.state.name !== '' && this.state.inputAge !== '' && this.state.inputEmail !== '') {
+      let name = this.state.inputName;
+      let age = this.state.inputAge;
+      let email = this.state.inputEmail;
 
-    axios.post('http://localhost:5000/friends', { name, age, email })
-      .then(response => {
-        this.setState({ friendsData: response.data });
-      })
+      axios.post('http://localhost:5000/friends', { name, age, email })
+        .then(response => {
+          this.setState({ friendsData: response.data });
+        })
+    }
+
   }
 
   deleteFriendHandler = (id) => {
@@ -64,16 +70,55 @@ class App extends React.Component {
       friendsData: newFriendData,
     })
 
-
     axios.delete(`http://localhost:5000/friends/${id}`);
       
   }
 
-  updateFriendDetails = () => {
+  updateFriendDetails = (id) => {
     // pass the current values from the friend object to the respective input fields
     // maintain the same id to hold same position
     // update friend details
-    console.log('I was clicked!!')
+    this.state.friendsData.map(friend => {
+      if(friend.id === id) {
+        this.setState({
+          inputName: friend.name,
+          inputAge: friend.age,
+          inputEmail: friend.email,
+          postBtnText: 'UPDATE',
+          friendID: id
+        })
+      }
+    })
+  }
+
+  updateFriendHandler = () => {
+    let id = this.state.friendID;
+
+    this.state.friendsData.map(friend => {
+      if(friend.id === id) {
+        return this.setState(prevState => ({
+          inputName: prevState.inputName,
+          inputAge: prevState.inputAge,
+          inputEmail: prevState.inputEmail,
+          postBtnText: 'ADD FRIEND',
+          friendID: null
+        })) 
+      }
+      return null;
+    })
+    
+    axios.put(`http://localhost:5000/friends/${id}`, {
+      id: id,
+      name: this.state.inputName,
+      age: this.state.inputAge,
+      email: this.state.inputEmail,
+    })
+
+    this.setState({
+      inputName: '',
+      inputAge: '',
+      inputEmail: '',
+    });
   }
 
   render() {
@@ -141,9 +186,11 @@ class App extends React.Component {
             <PostForm 
               name={this.state.inputName} 
               age={this.state.inputAge} 
-              email={this.state.inputEmail}  
+              email={this.state.inputEmail} 
+              btn={this.state.postBtnText} 
               inputHandler={this.inputHandler}
               addFriendHandler={this.addFriendHandler}
+              updateFriendHandler={this.updateFriendHandler}
             />
           </>
         }

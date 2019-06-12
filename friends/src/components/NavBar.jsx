@@ -10,14 +10,20 @@ const StylesNavBar = styled.header`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    height: 70px;
     background-color: #333;
     z-index: 10;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        height: 0;
+        width: 0;
+    }
 
     .nav-links {
         text-decoration: none;
         color: #fff;
-        padding: 10px 30px;
+        padding: 5px 30px;
         cursor: pointer;
 
         &.active {

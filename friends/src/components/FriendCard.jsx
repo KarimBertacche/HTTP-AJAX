@@ -11,10 +11,12 @@ const StylesFriendCard = styled.div`
     width: 30%;
     min-width: 300px;
     height: 150px;
+    background: linear-gradient(120deg , #333, #009FFF);
     margin: 20px auto;
     border: 3px solid #333;
     border-radius: 5px;
     box-shadow: 1px 1px 10px #000;
+    color: #ec2F4B;
 
     span {
         position: absolute;
@@ -29,12 +31,14 @@ const StylesFriendCard = styled.div`
 
     p {
         font-size: 2rem;
+        font-weight: bold;
         margin: 0;
     }
 
     .email-link {
         text-decoration: none;
-        color: #333;
+        color: #ec2F4B;
+        font-weight: bold;
 
         &:hover {
             cursor: pointer;
