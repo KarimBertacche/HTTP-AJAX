@@ -23,6 +23,7 @@ const StyledPostForm = styled.div`
             height: 30px;
             background: #009FFF;
             font-size: 1.5rem;
+            font-weight: bold;
             border: 3px solid #009FFF;
             border-radius: 5px;
             text-align: center;
@@ -46,8 +47,8 @@ const StyledPostForm = styled.div`
 
             &:hover {
                 background-color: #009FFF; 
-                border: 3px solid #ec2F4B; 
-                color: #ec2F4B;
+                border: 3px solid #fff; 
+                color: #fff;
             }
         }
     }
@@ -63,7 +64,7 @@ export default function PostForm(props) {
                                 ? (event) => props.addFriendHandler(event) 
                                 : (event) => props.updateFriendHandler(event)} >
                 <input type="text" name="inputName" value={props.name} onChange={props.inputHandler} placeholder="Name"/>
-                <input type="number" name="inputAge" value={props.age} onChange={props.inputHandler} placeholder="Age"/>
+                <input type="number" name="inputAge" value={props.age} onChange={props.inputHandler} placeholder="Age" min="1" max="110"/>
                 <input type="email" name="inputEmail" value={props.email} onChange={props.inputHandler} placeholder="Email"/>
                 <button type="submit">{props.btn}</button>
             </form>
