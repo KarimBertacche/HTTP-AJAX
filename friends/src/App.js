@@ -41,20 +41,53 @@ class App extends React.Component {
           <div>{this.state.errorMessage}</div>
         }
         {
-          this.state.friendsData && 
-          this.state.friendsData.map(friend => {
-            return(
-              <>
-                <Route path="/" render={(props) => <NavBar {...props} data={this.state.friendsData}/>} />
-                <FriendCard 
-                  key={friend.id}
-                  name={friend.name} 
-                  age={friend.age}
-                  email={friend.email}
-                />
-              </>
-            )
-          })
+
+        }
+        
+        {
+          this.state.friendsData &&
+          <> 
+            <Route path="/" render={(props) => <NavBar {...props} data={this.state.friendsData}/>} />
+            <div>
+              {
+                this.state.friendsData.map(friend => {
+                  return (
+                    <>
+                      <Route 
+                        exact
+                        path="/" 
+                        render={(props) => {
+                          return (
+                            <FriendCard 
+                              {...props}
+                              key={friend.id}
+                              name={friend.name} 
+                              age={friend.age}
+                              email={friend.email}
+                            />
+                          ) 
+                        }}  
+                      />
+                      <Route 
+                        path={`/${friend.name}/${friend.id}`} 
+                        render={(props) => {
+                          return (
+                            <FriendCard 
+                              {...props}
+                              key={friend.id}
+                              name={friend.name} 
+                              age={friend.age}
+                              email={friend.email}
+                            />
+                          )
+                        }}  
+                      /> 
+                    </>
+                  )    
+                })
+              }
+            </div>
+          </>
         }
       </div>
     );
