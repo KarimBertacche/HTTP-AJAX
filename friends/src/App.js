@@ -7,9 +7,9 @@ import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StylesApp = styled.div`
-  background: -webkit-linear-gradient(to right, #ec2F4B, #009FFF);
-  background: linear-gradient(to right, #ec2F4B, #009FFF);
-  min-height: 100vh;
+  background: -webkit-linear-gradient(to bottom right, #ec2F4B 2%, #009FFF);
+  background: linear-gradient(to bottom right, #ec2F4B 2%, #009FFF);
+  min-height: 70vh;
   padding: 100px 0 100px;
 `;
 

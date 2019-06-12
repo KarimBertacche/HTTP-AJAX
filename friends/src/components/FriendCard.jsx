@@ -32,7 +32,7 @@ const StylesFriendCard = styled.div`
     p {
         font-size: 2rem;
         font-weight: bold;
-        margin: 0;
+        margin: 0 0 5px;
     }
 
     .email-link {
@@ -59,8 +59,8 @@ const StylesFriendCard = styled.div`
         outline: none;
 
         &:hover {
-            background-color: #333;
-            color: #fff;   
+            background-color: #ec2F4B;
+            color: #000;   
         }
     }
 

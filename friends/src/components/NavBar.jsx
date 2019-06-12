@@ -14,6 +14,7 @@ const StylesNavBar = styled.header`
     background-color: #333;
     z-index: 10;
     overflow-x: auto;
+    border-bottom: 3px solid #009FFF;
 
     &::-webkit-scrollbar {
         height: 0;
@@ -23,15 +24,16 @@ const StylesNavBar = styled.header`
     .nav-links {
         text-decoration: none;
         color: #fff;
+        font-weight: bold;
         padding: 5px 30px;
         cursor: pointer;
 
         &.active {
             display: flex;
             align-items: center;
-            background-color: #fff;
+            background: #009FFF;
             height: 100%;
-            color: #333;
+            color: #000;
         }
     }
 

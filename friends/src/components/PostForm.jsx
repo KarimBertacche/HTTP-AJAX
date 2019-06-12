@@ -11,6 +11,7 @@ const StyledPostForm = styled.div`
     width: 100%;
     height: 100px;
     background-color: #333;
+    border-top: 3px solid #009FFF;
 
     form {
         display: flex;
@@ -20,20 +21,33 @@ const StyledPostForm = styled.div`
         input {
             width: 25%;
             height: 30px;
+            background: #009FFF;
             font-size: 1.5rem;
+            border: 3px solid #009FFF;
             border-radius: 5px;
             text-align: center;
             outline: none;
+            color: #fff;
+
+            &::placeholder {
+                font-weight: bold;
+                color: #000;
+            }
         }
 
         button {
             width: 150px;
+            background-color: #009FFF;
+            border: 3px solid #009FFF;
             border-radius: 5px;
             font-size: 1.3rem;
+            font-weight: bold;
             cursor: pointer;
 
             &:hover {
-                background-color: dodgerblue;  
+                background-color: #009FFF; 
+                border: 3px solid #ec2F4B; 
+                color: #ec2F4B;
             }
         }
     }
