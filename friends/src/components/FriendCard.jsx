@@ -69,7 +69,7 @@ export default function FriendCard(props) {
             <span onClick={() => props.deleteFriendHandler(props.id)}>X</span>
             <p>{props.name} {props.age}</p>
             <Link className="email-link" to={props.email}>{props.email}</Link>
-            <button>Update info</button>
+            <button onClick={() => props.updateFriendDetails(props.id)}>Update info</button>
         </StylesFriendCard>
     );
 }

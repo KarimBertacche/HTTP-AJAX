@@ -39,25 +39,22 @@ class App extends React.Component {
       })
   }
 
-  nameInputHandler = event => {
-    let name = event.target.value;
-    this.setState({ inputName: name });
-  }
-
-  ageInputHandler = event => {
-    if(Number(event.target.value)) {
-      let age = event.target.value;
-      this.setState({ inputAge: age });
-    }
-  }
-
-  emailInputHandler = event => {
-    let email = event.target.value;
-    this.setState({ inputEmail: email })
+  inputHandler = event => {
+    let { value } = event.target;
+    let name = event.target.name;
+    this.setState({ [ name ]: value });
   }
 
   addFriendHandler = () => {
     //post thing goes here
+    let name = this.state.inputName;
+    let age = this.state.inputAge;
+    let email = this.state.inputEmail;
+
+    axios.post('http://localhost:5000/friends', { name, age, email })
+      .then(response => {
+        this.setState({ friendsData: response.data });
+      })
   }
 
   deleteFriendHandler = (id) => {
@@ -66,6 +63,17 @@ class App extends React.Component {
     this.setState({
       friendsData: newFriendData,
     })
+
+
+    axios.delete(`http://localhost:5000/friends/${id}`);
+      
+  }
+
+  updateFriendDetails = () => {
+    // pass the current values from the friend object to the respective input fields
+    // maintain the same id to hold same position
+    // update friend details
+    console.log('I was clicked!!')
   }
 
   render() {
@@ -104,6 +112,7 @@ class App extends React.Component {
                               age={friend.age}
                               email={friend.email}
                               deleteFriendHandler={this.deleteFriendHandler}
+                              updateFriendDetails={this.updateFriendDetails}
                             />
                           ) 
                         }}  
@@ -119,6 +128,7 @@ class App extends React.Component {
                               age={friend.age}
                               email={friend.email}
                               deleteFriendHandler={this.deleteFriendHandler}
+                              updateFriendDetails={this.updateFriendDetails}
                             />
                           )
                         }}  
@@ -132,9 +142,7 @@ class App extends React.Component {
               name={this.state.inputName} 
               age={this.state.inputAge} 
               email={this.state.inputEmail}  
-              nameInputHandler={this.nameInputHandler}
-              ageInputHandler={this.ageInputHandler}
-              emailInputHandler={this.emailInputHandler}
+              inputHandler={this.inputHandler}
               addFriendHandler={this.addFriendHandler}
             />
           </>

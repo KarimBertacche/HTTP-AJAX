@@ -40,14 +40,16 @@ const StyledPostForm = styled.div`
 
 `;
 
+// 
+
 export default function PostForm(props) {
     return(
         <StyledPostForm>
-            <form action="/" method="post">
-                <input type="text" value={props.name} onChange={props.nameInputHandler} placeholder="Name"/>
-                <input type="text" value={props.age} onChange={props.ageInputHandler} placeholder="Age"/>
-                <input type="email" value={props.email} onChange={props.emailInputHandler} placeholder="Email"/>
-                <button onClick={props.addFriendHandler}>Add Friend</button>
+            <form onSubmit={props.addFriendHandler}>
+                <input type="text" name="inputName" value={props.name} onChange={props.inputHandler} placeholder="Name"/>
+                <input type="text" name="inputAge" value={props.age} onChange={props.inputHandler} placeholder="Age"/>
+                <input type="email" name="inputEmail" value={props.email} onChange={props.inputHandler} placeholder="Email"/>
+                <button type="submit">Add Friend</button>
             </form>
         </StyledPostForm>
     );  
