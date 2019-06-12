@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.css';
+import NavBar from './components/NavBar';
+import FriendCard from './components/FriendCard';
 import axios from 'axios';
+import { Route } from 'react-router-dom';
 
 class App extends React.Component {
   constructor() {
@@ -41,10 +44,15 @@ class App extends React.Component {
           this.state.friendsData && 
           this.state.friendsData.map(friend => {
             return(
-              <div key={friend.id}>
-                <p>{friend.name} {friend.age}</p>
-                <span>{friend.email}</span>
-              </div>
+              <>
+                <Route path="/" render={(props) => <NavBar {...props} data={this.state.friendsData}/>} />
+                <FriendCard 
+                  key={friend.id}
+                  name={friend.name} 
+                  age={friend.age}
+                  email={friend.email}
+                />
+              </>
             )
           })
         }
