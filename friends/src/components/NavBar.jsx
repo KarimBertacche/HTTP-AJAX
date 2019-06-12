@@ -36,7 +36,7 @@ export default function NavBar(props) {
             <NavLink className="nav-links" exact to="/">All</NavLink>
             {
                 props.data.map( data => 
-                    <NavLink className="nav-links" activeClassName="active" to={`/${data.name}/${data.id}`}>{data.name}</NavLink>
+                    <NavLink key={data.id} className="nav-links" activeClassName="active" to={`/${data.name}/${data.id}`}>{data.name}</NavLink>
                 )
             }       
         </StylesNavBar>

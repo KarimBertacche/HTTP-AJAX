@@ -36,7 +36,7 @@ export default function FriendCard(props) {
     return(
         <StylesFriendCard>
             <p>{props.name} {props.age}</p>
-            <Link className="email-link" href={props.email}>{props.email}</Link>
+            <Link className="email-link" to={props.email}>{props.email}</Link>
         </StylesFriendCard>
     );
 }

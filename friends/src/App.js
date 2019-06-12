@@ -19,6 +19,9 @@ class App extends React.Component {
       friendsData: null,
       errorMessage: '',
       spinner: false,
+      inputName: '',
+      inputAge: '',
+      inputEmail: '',
     }
   }
 
@@ -34,6 +37,23 @@ class App extends React.Component {
       .finally(() => {
         this.setState({ spinner: false });
       })
+  }
+
+  NameInputHandler = event => {
+    let name = event.target.value;
+    this.setState({ inputName: name });
+  }
+
+  AgeInputHandler = event => {
+    if(Number(event.target.value)) {
+      let age = event.target.value;
+      this.setState({ inputAge: age });
+    }
+  }
+
+  EmailInputHandler = event => {
+    let email = event.target.value;
+    this.setState({ inputEmail: email })
   }
 
   render() {
@@ -59,15 +79,14 @@ class App extends React.Component {
               {
                 this.state.friendsData.map(friend => {
                   return (
-                    <>
+                    <div key={friend.id}>
                       <Route 
                         exact
                         path="/" 
                         render={(props) => {
                           return (
                             <FriendCard 
-                              {...props}
-                              key={friend.id}
+                              {...props}      
                               name={friend.name} 
                               age={friend.age}
                               email={friend.email}
@@ -81,7 +100,6 @@ class App extends React.Component {
                           return (
                             <FriendCard 
                               {...props}
-                              key={friend.id}
                               name={friend.name} 
                               age={friend.age}
                               email={friend.email}
@@ -89,12 +107,19 @@ class App extends React.Component {
                           )
                         }}  
                       /> 
-                    </>
+                    </div>
                   )    
                 })
               }
             </div>
-            <PostForm />
+            <PostForm 
+              name={this.state.inputName} 
+              age={this.state.inputAge} 
+              email={this.state.inputEmail}  
+              NameInputHandler={this.NameInputHandler}
+              AgeInputHandler={this.AgeInputHandler}
+              EmailInputHandler={this.EmailInputHandler}
+            />
           </>
         }
       </StylesApp>
