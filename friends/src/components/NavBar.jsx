@@ -3,6 +3,10 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StylesNavBar = styled.header`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

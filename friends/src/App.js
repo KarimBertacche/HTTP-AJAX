@@ -1,9 +1,16 @@
 import React from 'react';
-import './App.css';
 import NavBar from './components/NavBar';
 import FriendCard from './components/FriendCard';
+import PostForm from './components/PostForm';
 import axios from 'axios';
 import { Route } from 'react-router-dom';
+import styled from 'styled-components';
+
+const StylesApp = styled.div`
+  background-color: #fff;
+  min-height: 100vh;
+  padding: 50px 0 100px;
+`;
 
 class App extends React.Component {
   constructor() {
@@ -31,7 +38,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <StylesApp>
         {
           this.state.spinner && 
           <div>Data is still fetching ...</div>
@@ -87,9 +94,10 @@ class App extends React.Component {
                 })
               }
             </div>
+            <PostForm />
           </>
         }
-      </div>
+      </StylesApp>
     );
   }
 }

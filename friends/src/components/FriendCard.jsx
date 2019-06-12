@@ -6,6 +6,7 @@ const StylesFriendCard = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 30%;
     min-width: 300px;
     height: 150px;
