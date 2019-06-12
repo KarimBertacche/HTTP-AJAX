@@ -39,21 +39,26 @@ class App extends React.Component {
       })
   }
 
-  NameInputHandler = event => {
+  nameInputHandler = event => {
     let name = event.target.value;
     this.setState({ inputName: name });
   }
 
-  AgeInputHandler = event => {
+  ageInputHandler = event => {
     if(Number(event.target.value)) {
       let age = event.target.value;
       this.setState({ inputAge: age });
     }
   }
 
-  EmailInputHandler = event => {
+  emailInputHandler = event => {
     let email = event.target.value;
     this.setState({ inputEmail: email })
+  }
+
+  deleteFriendHandler = (event) => {
+    console.log('Is working!!')
+    console.log(event.target.parentNode) // -> use path or id to delete card
   }
 
   render() {
@@ -90,6 +95,7 @@ class App extends React.Component {
                               name={friend.name} 
                               age={friend.age}
                               email={friend.email}
+                              deleteFriendHandler={this.deleteFriendHandler}
                             />
                           ) 
                         }}  
@@ -103,6 +109,7 @@ class App extends React.Component {
                               name={friend.name} 
                               age={friend.age}
                               email={friend.email}
+                              deleteFriendHandler={this.deleteFriendHandler}
                             />
                           )
                         }}  
@@ -116,9 +123,9 @@ class App extends React.Component {
               name={this.state.inputName} 
               age={this.state.inputAge} 
               email={this.state.inputEmail}  
-              NameInputHandler={this.NameInputHandler}
-              AgeInputHandler={this.AgeInputHandler}
-              EmailInputHandler={this.EmailInputHandler}
+              nameInputHandler={this.nameInputHandler}
+              ageInputHandler={this.ageInputHandler}
+              emailInputHandler={this.emailInputHandler}
             />
           </>
         }

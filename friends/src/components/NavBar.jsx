@@ -12,6 +12,7 @@ const StylesNavBar = styled.header`
     align-items: center;
     height: 50px;
     background-color: #333;
+    z-index: 10;
 
     .nav-links {
         text-decoration: none;
