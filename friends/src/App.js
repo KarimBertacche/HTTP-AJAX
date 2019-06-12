@@ -49,18 +49,28 @@ class App extends React.Component {
   }
 
   addFriendHandler = (event) => {
+    event.preventDefault();
     //post thing goes here
     if(this.state.name !== '' && this.state.inputAge !== '' && this.state.inputEmail !== '') {
       let name = this.state.inputName;
       let age = this.state.inputAge;
       let email = this.state.inputEmail;
 
-      axios.post('http://localhost:5000/friends', { name, age, email })
+      this.postRequestHandler({ name, age, email });
+    }
+
+    this.setState({
+      inputName: '',
+      inputAge: '',
+      inputEmail: '',
+    });
+  }
+
+  postRequestHandler = ({ name, age, email }) => {
+    axios.post('http://localhost:5000/friends', { name, age, email })
         .then(response => {
           this.setState({ friendsData: response.data });
         })
-    }
-
   }
 
   deleteFriendHandler = (id) => {
@@ -75,12 +85,9 @@ class App extends React.Component {
   }
 
   updateFriendDetails = (id) => {
-    // pass the current values from the friend object to the respective input fields
-    // maintain the same id to hold same position
-    // update friend details
     this.state.friendsData.map(friend => {
       if(friend.id === id) {
-        this.setState({
+        return this.setState({
           inputName: friend.name,
           inputAge: friend.age,
           inputEmail: friend.email,
@@ -88,10 +95,12 @@ class App extends React.Component {
           friendID: id
         })
       }
+      return null;
     })
   }
 
-  updateFriendHandler = () => {
+  updateFriendHandler = (event) => {
+    // event.preventDefault();
     let id = this.state.friendID;
 
     this.state.friendsData.map(friend => {
@@ -100,25 +109,29 @@ class App extends React.Component {
           inputName: prevState.inputName,
           inputAge: prevState.inputAge,
           inputEmail: prevState.inputEmail,
-          postBtnText: 'ADD FRIEND',
-          friendID: null
+          postBtnText: 'ADD FRIEND',        
         })) 
       }
-      return null;
+      return null;   
     })
-    
+
+    this.putRequestHandler(id);
+
+    this.setState({
+      inputName: '',
+      inputAge: '',
+      inputEmail: '',
+      friendID: null
+    });
+  }
+
+  putRequestHandler = (id) => {
     axios.put(`http://localhost:5000/friends/${id}`, {
       id: id,
       name: this.state.inputName,
       age: this.state.inputAge,
       email: this.state.inputEmail,
     })
-
-    this.setState({
-      inputName: '',
-      inputAge: '',
-      inputEmail: '',
-    });
   }
 
   render() {
