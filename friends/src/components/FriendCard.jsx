@@ -12,11 +12,16 @@ const StylesFriendCard = styled.div`
     min-width: 300px;
     height: 150px;
     background: linear-gradient(120deg , #333, #009FFF);
-    margin: 10px auto;
+    margin: 10px 5px;
     border: 3px solid #333;
     border-radius: 5px;
     box-shadow: 1px 1px 10px #000;
     color: #ec2F4B;
+    transition: all .4s ease-in-out;
+
+    &:hover {
+        transform: translateY(-10px);
+    }
 
     span {
         position: absolute;

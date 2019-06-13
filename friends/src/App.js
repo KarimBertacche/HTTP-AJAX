@@ -42,11 +42,12 @@ class App extends React.Component {
 
   componentDidMount() {
     this.setState({ loading: true });
-    this.fetchDataHandler();
+    setTimeout(() => {
+      this.fetchDataHandler();
+    }, 3000)
   }
 
   fetchDataHandler = () => {
-    setTimeout(() => {
       axios.get('http://localhost:5000/friends')
       .then(response => {
         this.setState({ friendsData: response.data });
@@ -56,9 +57,7 @@ class App extends React.Component {
       })
       .finally(() => {
         this.setState({ loading: false });
-      })
-    }, 3000)
-    
+      }) 
   }
 
   inputHandler = event => {
@@ -158,7 +157,13 @@ class App extends React.Component {
     this.setState({ searchInput: value });
   }
 
-  searchFriendHandler = () => {
+  searchFriendHandler = (event) => {
+    if(event.key === 'Enter' || event.target.textContent === 'Search'){
+      this.returnFoundFriendHandler();
+    }
+  }
+
+  returnFoundFriendHandler = () => {
     let friendName = this.state.searchInput;
     let foundFriend = this.state.friendsData.filter(friend => {
       return friend.name.toLowerCase().startsWith(friendName.toLowerCase());

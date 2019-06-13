@@ -60,8 +60,11 @@ export default function SearchBar(props) {
                     type="text"
                     value={props.search}
                     onChange={(event) => props.searchInputHandler(event)}
+                    onKeyDown={(event) => props.searchFriendHandler(event)}
                 /> 
-                <button onClick={props.searchFriendHandler}>Search</button>
+                <button 
+                    onClick={props.searchFriendHandler}     
+                >Search</button>
             </section>  
         </StylesSearchBar>
     )
