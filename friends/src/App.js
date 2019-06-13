@@ -7,10 +7,19 @@ import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StylesApp = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   background: -webkit-linear-gradient(to bottom right, #ec2F4B 2%, #009FFF);
   background: linear-gradient(to bottom right, #ec2F4B 2%, #009FFF);
   min-height: 70vh;
   padding: 100px 0 100px;
+
+  section {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
 `;
 
 class App extends React.Component {
@@ -181,7 +190,7 @@ class App extends React.Component {
                                                   searchFriendHandler={this.searchFriendHandler}
                                                   fetchDataHandler={this.fetchDataHandler}
                                                 />} />
-            <div>
+            <section>
               {
                 this.state.friendsData.map(friend => {
                   return (
@@ -223,7 +232,7 @@ class App extends React.Component {
                   )    
                 })
               }
-            </div>
+            </section>
             <PostForm 
               name={this.state.inputName} 
               age={this.state.inputAge} 

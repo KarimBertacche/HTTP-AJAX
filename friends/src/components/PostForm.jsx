@@ -44,11 +44,18 @@ const StyledPostForm = styled.div`
             font-size: 1.3rem;
             font-weight: bold;
             cursor: pointer;
+            outline: none;
+            transition: all .3s ease-out;
 
             &:hover {
                 background-color: #009FFF; 
                 border: 3px solid #fff; 
                 color: #fff;
+                transform: translateY(-5px) scale(1.1);
+            }
+
+            &:active {
+                transform: translateY(-3px);
             }
         }
     }
