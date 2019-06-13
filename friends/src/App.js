@@ -2,6 +2,8 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import FriendCard from './components/FriendCard';
 import PostForm from './components/PostForm';
+import LoadingPage from './components/LoadingPage';
+
 import axios from 'axios';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
@@ -28,7 +30,7 @@ class App extends React.Component {
     this.state = {
       friendsData: null,
       errorMessage: '',
-      spinner: false,
+      loading: false,
       inputName: '',
       inputAge: '',
       inputEmail: '',
@@ -39,12 +41,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ spinner: true });
+    this.setState({ loading: true });
     this.fetchDataHandler();
   }
 
   fetchDataHandler = () => {
-    axios.get('http://localhost:5000/friends')
+    setTimeout(() => {
+      axios.get('http://localhost:5000/friends')
       .then(response => {
         this.setState({ friendsData: response.data });
       })
@@ -52,8 +55,10 @@ class App extends React.Component {
         this.setState({ errorMessage: error.message });
       })
       .finally(() => {
-        this.setState({ spinner: false });
+        this.setState({ loading: false });
       })
+    }, 3000)
+    
   }
 
   inputHandler = event => {
@@ -64,7 +69,7 @@ class App extends React.Component {
 
   addFriendHandler = (event) => {
     event.preventDefault();
-    //post thing goes here
+
     if(this.state.name !== '' && this.state.inputAge !== '' && this.state.inputEmail !== '') {
       let name = this.state.inputName;
       let age = this.state.inputAge;
@@ -169,8 +174,8 @@ class App extends React.Component {
     return (
       <StylesApp>
         {
-          this.state.spinner && 
-          <div>Data is still fetching ...</div>
+          this.state.loading && 
+          <LoadingPage />
         }
         {
           this.state.errorMessage && 
