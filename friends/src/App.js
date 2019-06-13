@@ -30,6 +30,10 @@ class App extends React.Component {
 
   componentDidMount() {
     this.setState({ spinner: true });
+    this.fetchDataHandler();
+  }
+
+  fetchDataHandler = () => {
     axios.get('http://localhost:5000/friends')
       .then(response => {
         this.setState({ friendsData: response.data });
@@ -100,7 +104,7 @@ class App extends React.Component {
   }
 
   updateFriendHandler = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     let id = this.state.friendID;
 
     this.state.friendsData.map(friend => {
@@ -131,7 +135,7 @@ class App extends React.Component {
       name: this.state.inputName,
       age: this.state.inputAge,
       email: this.state.inputEmail,
-    })
+    }).then(() => this.fetchDataHandler());
   }
 
   render() {

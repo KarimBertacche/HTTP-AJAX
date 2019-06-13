@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchBar from './SearchBar';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -42,6 +43,7 @@ const StylesNavBar = styled.header`
 export default function NavBar(props) {
     return(
         <StylesNavBar>
+            <SearchBar />
             <NavLink className="nav-links" exact to="/">All</NavLink>
             {
                 props.data.map( data => 
