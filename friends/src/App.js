@@ -23,6 +23,7 @@ class App extends React.Component {
       inputName: '',
       inputAge: '',
       inputEmail: '',
+      searchInput: '',
       postBtnText: 'ADD FRIEND',
       friendID: null,
     }
@@ -138,6 +139,23 @@ class App extends React.Component {
     }).then(() => this.fetchDataHandler());
   }
 
+  searchInputHandler = (event) => {
+    let { value } = event.target;
+    this.setState({ searchInput: value });
+  }
+
+  searchFriendHandler = () => {
+    let friendName = this.state.searchInput;
+    let foundFriend = this.state.friendsData.filter(friend => {
+      return friend.name.toLowerCase().startsWith(friendName.toLowerCase());
+    })
+
+    this.setState({ 
+      friendsData: foundFriend,
+      searchInput: '',
+    });
+  }
+
   render() {
     return (
       <StylesApp>
@@ -156,7 +174,13 @@ class App extends React.Component {
         {
           this.state.friendsData &&
           <> 
-            <Route path="/" render={(props) => <NavBar {...props} data={this.state.friendsData}/>} />
+            <Route path="/" render={(props) =>  <NavBar {...props} 
+                                                  data={this.state.friendsData}
+                                                  search={this.state.searchInput}
+                                                  searchInputHandler={this.searchInputHandler}
+                                                  searchFriendHandler={this.searchFriendHandler}
+                                                  fetchDataHandler={this.fetchDataHandler}
+                                                />} />
             <div>
               {
                 this.state.friendsData.map(friend => {
