@@ -2,15 +2,26 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import FriendCard from './components/FriendCard';
 import PostForm from './components/PostForm';
+import LoadingPage from './components/LoadingPage';
+
 import axios from 'axios';
 import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StylesApp = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   background: -webkit-linear-gradient(to bottom right, #ec2F4B 2%, #009FFF);
   background: linear-gradient(to bottom right, #ec2F4B 2%, #009FFF);
   min-height: 70vh;
   padding: 100px 0 100px;
+
+  section {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
 `;
 
 class App extends React.Component {
@@ -19,18 +30,25 @@ class App extends React.Component {
     this.state = {
       friendsData: null,
       errorMessage: '',
-      spinner: false,
+      loading: false,
       inputName: '',
       inputAge: '',
       inputEmail: '',
+      searchInput: '',
       postBtnText: 'ADD FRIEND',
       friendID: null,
     }
   }
 
   componentDidMount() {
-    this.setState({ spinner: true });
-    axios.get('http://localhost:5000/friends')
+    this.setState({ loading: true });
+    setTimeout(() => {
+      this.fetchDataHandler();
+    }, 3000)
+  }
+
+  fetchDataHandler = () => {
+      axios.get('http://localhost:5000/friends')
       .then(response => {
         this.setState({ friendsData: response.data });
       })
@@ -38,8 +56,8 @@ class App extends React.Component {
         this.setState({ errorMessage: error.message });
       })
       .finally(() => {
-        this.setState({ spinner: false });
-      })
+        this.setState({ loading: false });
+      }) 
   }
 
   inputHandler = event => {
@@ -50,7 +68,7 @@ class App extends React.Component {
 
   addFriendHandler = (event) => {
     event.preventDefault();
-    //post thing goes here
+
     if(this.state.name !== '' && this.state.inputAge !== '' && this.state.inputEmail !== '') {
       let name = this.state.inputName;
       let age = this.state.inputAge;
@@ -100,7 +118,7 @@ class App extends React.Component {
   }
 
   updateFriendHandler = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     let id = this.state.friendID;
 
     this.state.friendsData.map(friend => {
@@ -131,15 +149,38 @@ class App extends React.Component {
       name: this.state.inputName,
       age: this.state.inputAge,
       email: this.state.inputEmail,
+    }).then(() => this.fetchDataHandler());
+  }
+
+  searchInputHandler = (event) => {
+    let { value } = event.target;
+    this.setState({ searchInput: value });
+  }
+
+  searchFriendHandler = (event) => {
+    if(event.key === 'Enter' || event.target.textContent === 'Search'){
+      this.returnFoundFriendHandler();
+    }
+  }
+
+  returnFoundFriendHandler = () => {
+    let friendName = this.state.searchInput;
+    let foundFriend = this.state.friendsData.filter(friend => {
+      return friend.name.toLowerCase().startsWith(friendName.toLowerCase());
     })
+
+    this.setState({ 
+      friendsData: foundFriend,
+      searchInput: '',
+    });
   }
 
   render() {
     return (
       <StylesApp>
         {
-          this.state.spinner && 
-          <div>Data is still fetching ...</div>
+          this.state.loading && 
+          <LoadingPage />
         }
         {
           this.state.errorMessage && 
@@ -152,8 +193,14 @@ class App extends React.Component {
         {
           this.state.friendsData &&
           <> 
-            <Route path="/" render={(props) => <NavBar {...props} data={this.state.friendsData}/>} />
-            <div>
+            <Route path="/" render={(props) =>  <NavBar {...props} 
+                                                  data={this.state.friendsData}
+                                                  search={this.state.searchInput}
+                                                  searchInputHandler={this.searchInputHandler}
+                                                  searchFriendHandler={this.searchFriendHandler}
+                                                  fetchDataHandler={this.fetchDataHandler}
+                                                />} />
+            <section>
               {
                 this.state.friendsData.map(friend => {
                   return (
@@ -195,7 +242,7 @@ class App extends React.Component {
                   )    
                 })
               }
-            </div>
+            </section>
             <PostForm 
               name={this.state.inputName} 
               age={this.state.inputAge} 
